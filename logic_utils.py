@@ -68,20 +68,23 @@ def check_guess(guess, secret):
         return "Win", "🎉 Correct!"
 
 
+ 
 def update_score(current_score: int, outcome: str, attempt_number: int):
     """Update score based on outcome and attempt number."""
+    new_score = current_score # Start with what we have
+
     if outcome == "Win":
-        points = 100 - 10 * (attempt_number + 1)
+        points = 100 - 10 * (attempt_number) # Use current attempt count
         if points < 10:
             points = 10
-        return current_score + points
+        new_score += points
 
-    if outcome == "Too High":
-        if attempt_number % 2 == 0:
-            return current_score + 5
-        return current_score - 5
+    elif outcome == "Too High":
+        # Removed the % 2 glitch so it's always a fair penalty
+        new_score -= 10 
 
-    if outcome == "Too Low":
-        return current_score - 5
+    elif outcome == "Too Low":
+        new_score -= 10
 
-    return current_score
+    # This is the "Safety Floor" - it applies to EVERY outcome
+    return max(0, new_score)
