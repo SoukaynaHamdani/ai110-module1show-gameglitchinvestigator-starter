@@ -25,14 +25,25 @@ It wrote the code, ran away, and now the game is unplayable.
 
 ## 📝 Document Your Experience
 
-- [ ] Describe the game's purpose.
-- [ ] Detail which bugs you found.
-- [ ] Explain what fixes you applied.
+-Game's Purpose:
+The "Glitchy Guesser" is a Streamlit-based number guessing game designed as a debugging challenge. The core objective is to find a secret number within a limited set of attempts based on the chosen difficulty level (Easy, Normal, or Hard).
 
-## 📸 Demo
+Detail which bugs you found:
 
-- [ ] [Insert a screenshot of your fixed, winning game here]
+The Logical Inversion: The hints were swapped; the game told me to "Go HIGHER" when my guess was already above the secret number.
 
-## 🚀 Stretch Features
+The Session State Bug: The secret number regenerated on every rerun (every button click), making it impossible to narrow down the target.
 
-- [ ] [If you choose to complete Challenge 4, insert a screenshot of your Enhanced Game UI here]
+The Type Mismatch: On even-numbered attempts, the code forced the secret number into a string format, causing comparison errors and  Intermittent Glitches. 
+
+Explain what fixes you applied:
+
+Modular Refactoring: I moved all core logic (guessing, scoring, and range setting) into logic_utils.py to isolate the  brain from the UI.
+
+State Persistence: I implemented st.session_state to ensure the secret number and score remain constant throughout the game session.
+
+Type Normalization: I ensured all comparisons are done between integers and added a try-except block in the input parsing to handle non-numeric text gracefully.
+
+## 📸 Demo 
+![Winning Game](./win_screenshot.png)
+## 🚀 Stretch Features 
